@@ -60,7 +60,8 @@ class DebugToolbarMiddleware(object):
         if not remote_addr in settings.INTERNAL_IPS \
             or (request.is_ajax() and \
                 not debug_toolbar.urls._PREFIX in request.path) \
-                    or not settings.DEBUG:
+                    or not settings.DEBUG \
+                        or not getattr(settings, 'DEBUG_TOOLBAR_ENABLED', True):
             return False
         return True
 
